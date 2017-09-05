@@ -8,11 +8,23 @@
   <body>
     <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Onion_on_White.JPG" width="200" height="200" />
 
-    <script>
+    <ul id="repos"></ul>
 
+    <script>
       $(function() {
         $.get('/repos').done(function(data) {
           console.log(data);
+          const teamRepos = data.data.organization.teams.nodes[0].repositories.nodes;
+          const topicRepos = data.data.search.nodes;
+          const allRepos = [...teamRepos, ...topicRepos];
+          console.log(allRepos);
+          const uniqueRepos = [...new Map(allRepos.map((x) => [x.name, x])).values()];
+          uniqueRepos.sort((a, b) => a.name.localeCompare(b.name));
+          console.log(uniqueRepos);
+
+          const ul = $('#repos');
+          uniqueRepos.map((repo) => console.log(`${repo.url}`))
+          uniqueRepos.map((repo) => ul.append($(`<li><a href="${repo.url}">${repo.name}</a> - ${repo.description || "(no description)"}</li>`)))
         })
       });
     </script>
