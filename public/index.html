@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Orion repos</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+
+  <body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Onion_on_White.JPG" width="200" height="200" />
+
+    <script>
+
+      $(function() {
+        $.get('/repos').done(function(data) {
+          console.log(data);
+        })
+      });
+    </script>
+  </body>
+</html>
+
